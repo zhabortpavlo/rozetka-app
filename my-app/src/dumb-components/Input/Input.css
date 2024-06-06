@@ -1,16 +1,30 @@
-input {
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-container input {
   width: 277px;
   height: 56px;
-  top: 397px;
-  left: 602px;
   padding: 10px;
   padding-right: 40px;
   background-color: rgb(217, 217, 217);
   box-sizing: border-box;
   border: 1px solid #ccc;
 }
-::placeholder {
+
+.input-container input::placeholder {
   font-weight: 600;
   font-size: 14px;
   color: rgb(68, 178, 111);
+}
+
+.input-container .icon {
+  position: absolute;
+  right: 120px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
 }

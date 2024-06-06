@@ -1,5 +1,5 @@
 import "./Login.css";
-import Card from "./Card/Card";
+import Card from "./components/Card/Card";
 
 const Login = () => {
   return (

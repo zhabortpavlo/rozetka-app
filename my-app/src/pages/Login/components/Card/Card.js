@@ -1,7 +1,9 @@
+import React from "react";
 import "./Card.css";
 import Input from "../../../../dumb-components/Input/Input";
 import Button from "../../../../dumb-components/Button/Button";
 import MainLogo from "../../../../assets/svg/MainLogo";
+import EyeIcon from "../../../../assets/svg/EyeIcon";
 
 const Card = () => {
   return (
@@ -16,10 +18,10 @@ const Card = () => {
             <Input type="text" placeholder="User Name" />
           </div>
           <div className="input-wrapper">
-            <Input type="password" placeholder="Password" />
+            <Input type="password" placeholder="Password" icon={<EyeIcon />} />
           </div>
         </div>
-        <Button title="Login"/>
+        <Button title="Login" />
       </div>
     </div>
   );
