@@ -22,14 +22,13 @@
   text-align: center;
 }
 .test-img {
-    left: 103px;
-    right: 0;
-    top: 98px;
-    bottom: 0;
-    width: 209px;
-    height: 139px;
+  left: 103px;
+  right: 0;
+  top: 98px;
+  bottom: 0;
+  width: 209px;
+  height: 139px;
 }
-
 
 .product-price {
   width: 100%;

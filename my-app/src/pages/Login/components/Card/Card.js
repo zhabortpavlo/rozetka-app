@@ -29,7 +29,7 @@ const Card = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               icon={showPassword ? <ClosedEye /> : <EyeIcon />}
-              onIconClick={togglePassword} // Змінено з onClick на onIconClick
+              onIconClick={togglePassword}
             />
           </div>
         </div>
