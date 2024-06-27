@@ -1,6 +1,6 @@
-import ButtonsBlock from "./ButtonsBlock/ButtonsBlock";
-import Header from "./Header/Header";
-import MainTable from "./MainTable/MainTable";
+import ButtonsBlock from "./components/ButtonsBlock/ButtonsBlock";
+import Header from "./components/Header/Header";
+import MainTable from "./components/MainTable/MainTable";
 import "./MainTablePage.css";
 
 const MainTablePage = () => {
