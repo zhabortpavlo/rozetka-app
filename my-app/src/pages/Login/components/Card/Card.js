@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Card.css";
-import Input from "../../../../dumb-components/Input/Input";
-import Button from "../../../../dumb-components/Button/Button";
+import Input from "../../../../components/Input/Input";
+import Button from "../../../../components/Button/Button";
 import MainLogo from "../../../../assets/svg/MainLogo";
 import EyeIcon from "../../../../assets/svg/EyeIcon";
 import ClosedEye from "../../../../assets/svg/ClosedEyeIcon";
@@ -12,6 +13,7 @@ const Card = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -34,6 +36,8 @@ const Card = () => {
       setPassword("");
       setErrorMessage("");
       setErrors({});
+
+      navigate("/main-table-page");
     } catch (error) {
       setErrorMessage("Неправильний логін або пароль");
     }
