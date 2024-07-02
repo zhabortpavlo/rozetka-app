@@ -1,0 +1,64 @@
+.product-details {
+  padding: 20px;
+  background-color: aliceblue;
+  width: 100%;
+}
+
+.product-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.product-image {
+  max-width: 300px;
+  margin-right: 20px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info h1 {
+  margin: 0;
+  font-size: 24px;
+  color: rgb(158, 157, 155);
+}
+
+.availability {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.status.in-stock {
+  color: green;
+}
+
+.status.out-of-stock {
+  color: red;
+}
+
+.price {
+  color: red;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.amount {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.product-description {
+  margin-top: 20px;
+}
+
+.product-description h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-description p {
+  white-space: pre-line;
+}
