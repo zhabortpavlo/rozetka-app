@@ -1,11 +1,17 @@
 import "./ProductCard.css";
 import ShopingCart from "../../../../assets/svg/ShopingCart";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-  const { name, price, amount, image, readyToShip } = product;
+  const { id, name, price, amount, image, readyToShip } = product;
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/product/${id}`);
+  };
 
   return (
-    <div className="main-card">
+    <div className="main-card" onClick={handleCardClick}>
       <div className="img-description">
         <img src={image} alt="" className="test-img" />
         <p>{name}</p>
