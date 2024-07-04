@@ -6,84 +6,48 @@ import BackSign from "../../assets/svg/BackSign";
 import TableLogo from "../../assets/svg/TableLogo";
 import TableButton from "../../components/TableButton/TableButton";
 
-const products = [
-  {
-    id: 0,
-    name: "Ноутбук Lenovo Y50-70 Aluminium Black",
-    price: "25000$",
-    amount: 6,
-    image: productImage,
-    readyToShip: true,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-  {
-    id: 1,
-    name: "Ноутбук Asus ROG Strix",
-    price: "30000$",
-    amount: 4,
-    image: productImage,
-    readyToShip: true,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-  {
-    id: 2,
-    name: "Ноутбук HP Pavilion",
-    price: "28000$",
-    amount: 5,
-    image: productImage,
-    readyToShip: false,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-  {
-    id: 3,
-    name: "Ноутбук Dell Inspiron",
-    price: "27000$",
-    amount: 7,
-    image: productImage,
-    readyToShip: true,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-  {
-    id: 4,
-    name: "Ноутбук Acer Aspire",
-    price: "26000$",
-    amount: 3,
-    image: productImage,
-    readyToShip: true,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-  {
-    id: 5,
-    name: "Ноутбук Apple MacBook Pro",
-    price: "35000$",
-    amount: 2,
-    image: productImage,
-    readyToShip: false,
-    description:
-      "15.6-дюймовий дисплей стандарту Full HD\nФільми, малюнки та ігри немов оживають на дисплеї стандарту Full HD (1920 × 1080).\n\nДинаміки преміум-класу\nСтереофонічні динаміки JBL, що забезпечують розкішне звучання з ефектом присутності, ідеально підходять для відео, ігор і музики.\n\nDolby Advanced Audio\nDolby Advanced Audio — це технологія, завдяки якій на ноутбуці можна відтворити кристалево чіткий просторовий звук за допомогою вбудованих динаміків.",
-  },
-];
-
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const product = products.find((p) => p.id === parseInt(id));
-    setProduct(product);
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `https://6671686de083e62ee43b7889.mockapi.io/products/ProductDetailsTable`
+        );
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        const data = await response.json();
+        const product = data.find((p) => p.id === parseInt(id));
+        if (!product) {
+          throw new Error("Product not found");
+        }
+        product.image = productImage;
+        setProduct(product);
+        setLoading(false);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
   const handleBackClick = () => {
     navigate(-1);
   };
 
-  if (!product) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
@@ -93,7 +57,7 @@ const ProductDetails = () => {
       <div className="product-details">
         <TableButton
           icon={<BackSign />}
-          title={" -Back"}
+          title={"Back"}
           className="backButton"
           onClick={handleBackClick}
         />
