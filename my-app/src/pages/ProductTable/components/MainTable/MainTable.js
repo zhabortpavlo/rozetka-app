@@ -5,6 +5,8 @@ import TrashIcon from "../../../../assets/svg/TrashIcon";
 
 const MainTable = () => {
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
   useEffect(() => {
     fetch("https://6671686de083e62ee43b7889.mockapi.io/products/tableProducts")
@@ -12,6 +14,31 @@ const MainTable = () => {
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  const openModal = (productId) => {
+    setProductIdToDelete(productId);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setProductIdToDelete(null);
+    setShowModal(false);
+  };
+
+  const handleDelete = () => {
+    fetch(
+      `https://6671686de083e62ee43b7889.mockapi.io/products/tableProducts/${productIdToDelete}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => response.json())
+      .then(() => {
+        setData(data.filter((row) => row.id !== productIdToDelete));
+        closeModal();
+      })
+      .catch((error) => console.error("Error deleting product:", error));
+  };
 
   return (
     <div className="table-block">
@@ -40,12 +67,25 @@ const MainTable = () => {
                 <PencilIcon />
               </td>
               <td>
-                <TrashIcon />
+                <TrashIcon onClick={() => openModal(row.id)} />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Підтвердити видалення</h2>
+            <p>Ви впевненні що хочете видалити цей продукт?</p>
+            <div className="modal-buttons">
+              <button onClick={handleDelete}>Видалити</button>
+              <button onClick={closeModal}>Відміна</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
