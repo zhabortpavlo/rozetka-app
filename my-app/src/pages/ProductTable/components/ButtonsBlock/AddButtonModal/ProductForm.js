@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import "./ProductForm.css";
 
 const ProductForm = ({ initialData, onSubmit }) => {
-  const [formData, setFormData] = useState(initialData || {
-    category: "",
-    name: "",
-    quantity: "",
-    price: "",
-    description: "",
-  });
+  const [formData, setFormData] = useState(
+    initialData || {
+      category: "",
+      name: "",
+      quantity: "",
+      price: "",
+      description: "",
+    }
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +22,12 @@ const ProductForm = ({ initialData, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.category || !formData.name || !formData.quantity || !formData.price) {
+    if (
+      !formData.category ||
+      !formData.name ||
+      !formData.quantity ||
+      !formData.price
+    ) {
       alert("Please fill in all required fields.");
       return;
     }

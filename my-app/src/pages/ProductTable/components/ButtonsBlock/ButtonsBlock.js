@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import TableButton from "../../../../components/TableButton/TableButton";
@@ -16,22 +13,25 @@ const ButtonsBlock = () => {
 
   const openAddProductModal = () => {
     setIsModalOpen(true);
-    setFormError(null); 
+    setFormError(null);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setFormError(null); 
+    setFormError(null);
   };
 
   const addProduct = (formData) => {
-    fetch("https://6671686de083e62ee43b7889.mockapi.io/products/tableProducts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
+    fetch(
+      "https://6671686de083e62ee43b7889.mockapi.io/products/tableProducts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to add product.");
@@ -39,11 +39,11 @@ const ButtonsBlock = () => {
         return response.json();
       })
       .then((newProduct) => {
-        setIsModalOpen(false); 
+        setIsModalOpen(false);
       })
       .catch((error) => {
         console.error("Error adding product:", error);
-        setFormError("Error adding product. Please try again."); 
+        setFormError("Error adding product. Please try again.");
       });
   };
 
@@ -63,8 +63,8 @@ const ButtonsBlock = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
       >
-        <ProductForm onSubmit={addProduct} /> 
-        {formError && <p className="error-message">{formError}</p>} 
+        <ProductForm onSubmit={addProduct} />
+        {formError && <p className="error-message">{formError}</p>}
       </AddButtonModal>
     </div>
   );
