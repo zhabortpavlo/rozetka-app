@@ -1,0 +1,36 @@
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-actions button:first-child {
+  background: #ccc;
+}
+
+.form-actions button:last-child {
+  background: #4caf50;
+  color: white;
+}

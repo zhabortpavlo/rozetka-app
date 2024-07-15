@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./MainTable.css";
 import PencilIcon from "../../../../assets/svg/PencilIcon";
 import TrashIcon from "../../../../assets/svg/TrashIcon";
+import AddButtonModal from "../ButtonsBlock/AddButtonModal/AddButtonModal";
+import ProductForm from "../ButtonsBlock/AddButtonModal/ProductForm";
 
 const MainTable = () => {
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
+  const [productToEdit, setProductToEdit] = useState(null);
 
   useEffect(() => {
     fetch("https://6671686de083e62ee43b7889.mockapi.io/products/tableProducts")
@@ -15,14 +19,14 @@ const MainTable = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const openModal = (productId) => {
+  const openDeleteModal = (productId) => {
     setProductIdToDelete(productId);
-    setShowModal(true);
+    setShowDeleteModal(true);
   };
 
-  const closeModal = () => {
+  const closeDeleteModal = () => {
     setProductIdToDelete(null);
-    setShowModal(false);
+    setShowDeleteModal(false);
   };
 
   const handleDelete = () => {
@@ -35,9 +39,19 @@ const MainTable = () => {
       .then((response) => response.json())
       .then(() => {
         setData(data.filter((row) => row.id !== productIdToDelete));
-        closeModal();
+        closeDeleteModal();
       })
       .catch((error) => console.error("Error deleting product:", error));
+  };
+
+  const openEditModal = (product) => {
+    setProductToEdit(product);
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setProductToEdit(null);
+    setShowEditModal(false);
   };
 
   return (
@@ -64,27 +78,37 @@ const MainTable = () => {
               <td>{row.quantity}</td>
               <td>{row.price}</td>
               <td>
-                <PencilIcon />
+                <PencilIcon onClick={() => openEditModal(row)} />
               </td>
               <td>
-                <TrashIcon onClick={() => openModal(row.id)} />
+                <TrashIcon onClick={() => openDeleteModal(row.id)} />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {showModal && (
+      {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
             <h2>Підтвердити видалення</h2>
-            <p>Ви впевненні що хочете видалити цей продукт?</p>
+            <p>Ви впевнені, що хочете видалити цей продукт?</p>
             <div className="modal-buttons">
               <button onClick={handleDelete}>Видалити</button>
-              <button onClick={closeModal}>Відміна</button>
+              <button onClick={closeDeleteModal}>Відміна</button>
             </div>
           </div>
         </div>
+      )}
+
+      {showEditModal && (
+        <AddButtonModal
+          title="Edit product"
+          isOpen={showEditModal}
+          onClose={closeEditModal}
+        >
+          <ProductForm initialData={productToEdit} />
+        </AddButtonModal>
       )}
     </div>
   );
