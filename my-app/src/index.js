@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import Login from "./pages/Login/Login";
 import MainTablePage from "./pages/ProductTable/MainTablePage";
@@ -18,9 +18,11 @@ const App = () => {
   );
 };
 
-ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  document.getElementById("root")
+const root = ReactDOM.createRoot(document.getElementById("root")); 
+root.render(
+  <React.StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>
 );
